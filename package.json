@@ -1,5 +1,5 @@
 {
-  "name": "t-parser",
+  "name": "@guigalleta/t-parser",
   "version": "1.0.0",
   "description": "Parser combinators library with zero dependencies inspired in arcsecond",
   "main": ".src/index.ts",
