@@ -79,6 +79,33 @@ export const choice: ParserCombinator =
         });
     };
 
+export const times =
+    (amount: number) =>
+    (parser: Parser, identifier?: string) =>
+    (parserState: ParserState) => {
+        if (parserState.isError) return parserState;
+        const result = [];
+        let currentParserState = parserState;
+
+        for (let i = 0; i < amount; i++) {
+            const tempParserState = parser(currentParserState);
+            if (tempParserState.isError)
+                return updateParserError(
+                    tempParserState,
+                    `Tried to parse ${amount} ${
+                        identifier ?? "unindentified structure"
+                    } but got ${i || "none"}`
+                );
+            result.push(tempParserState.result);
+            currentParserState = tempParserState;
+        }
+
+        return updateParserState(currentParserState, {
+            ...currentParserState,
+            result,
+        });
+    };
+
 export const parse = (string: string, parser: Parser, identifier?: string) => {
     const parserState = {
         index: 0,

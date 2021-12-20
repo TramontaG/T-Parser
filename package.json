@@ -1,10 +1,13 @@
 {
-  "name": "@guigalleta/t-parser",
-  "version": "1.0.1",
-  "description": "Parser combinators library with zero dependencies inspired in arcsecond",
-  "main": "./dist/index.js",
-  "repository": "git@github.com:TramontaG/T-Parser.git",
-  "author": "Tramonta <tramontano.guilherme@yahoo.com.br>",
-  "license": "MIT",
-  "private": false
+    "name": "@guigalleta/t-parser",
+    "version": "1.1.1",
+    "description": "Parser combinators library with zero dependencies inspired in arcsecond",
+    "main": "./dist/index.js",
+    "repository": "git@github.com:TramontaG/T-Parser.git",
+    "author": "Tramonta <tramontano.guilherme@yahoo.com.br>",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "build": "tsc"
+    }
 }

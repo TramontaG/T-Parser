@@ -17,7 +17,7 @@ export const str: ParserMaker =
         if (slicedTarget.length === 0)
             return updateParserError(
                 parserState,
-                `Tried to parse ${target} but got unexpected end of input`
+                `Tried to parse \"${target}\" but got unexpected end of input`
             );
 
         if (slicedTarget.startsWith(target))
@@ -40,10 +40,16 @@ export const str: ParserMaker =
 
         return updateParserError(
             parserState,
-            `Tried do parse ${identifier || target} but got ${supplied.slice(
+            `Tried do parse \"${
+                identifier || target
+            }\" but got \"${supplied.slice(
                 parserState.index,
                 parserState.index + 10
-            )} instead`
+            )}${
+                parserState.stringToBeParsed.length > parserState.index + 10
+                    ? "..."
+                    : ""
+            }\" instead`
         );
     };
 

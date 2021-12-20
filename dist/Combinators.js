@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parse = exports.choice = exports.sequenceOf = exports.fullString = void 0;
+exports.parse = exports.times = exports.choice = exports.sequenceOf = exports.fullString = void 0;
 const ParserUtils_1 = require("./ParserUtils");
 const fullString = (parser, identifier) => (parserState) => {
     if (parserState.isError)
@@ -46,6 +46,21 @@ const choice = (parsers, identifier) => (parserState) => {
     return (0, ParserUtils_1.updateParserState)(nextState, Object.assign(Object.assign({}, nextState), { result: result }));
 };
 exports.choice = choice;
+const times = (amount) => (parser, identifier) => (parserState) => {
+    if (parserState.isError)
+        return parserState;
+    const result = [];
+    let currentParserState = parserState;
+    for (let i = 0; i < amount; i++) {
+        const tempParserState = parser(currentParserState);
+        if (tempParserState.isError)
+            return (0, ParserUtils_1.updateParserError)(tempParserState, `Tried to parse ${amount} ${identifier !== null && identifier !== void 0 ? identifier : "unindentified structure"} but got ${i || "none"}`);
+        result.push(tempParserState.result);
+        currentParserState = tempParserState;
+    }
+    return (0, ParserUtils_1.updateParserState)(currentParserState, Object.assign(Object.assign({}, currentParserState), { result }));
+};
+exports.times = times;
 const parse = (string, parser, identifier) => {
     const parserState = {
         index: 0,

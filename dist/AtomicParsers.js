@@ -9,12 +9,14 @@ const str = (target, identifier) => (parserState, supressErrors) => {
     const supplied = parserState.stringToBeParsed;
     const slicedTarget = supplied.slice(index);
     if (slicedTarget.length === 0)
-        return (0, ParserUtils_1.updateParserError)(parserState, `Tried to parse ${target} but got unexpected end of input`);
+        return (0, ParserUtils_1.updateParserError)(parserState, `Tried to parse \"${target}\" but got unexpected end of input`);
     if (slicedTarget.startsWith(target))
         return (0, ParserUtils_1.updateParserState)(parserState, Object.assign(Object.assign({}, parserState), { index: parserState.index + target.length, result: target }));
     if (supressErrors)
         return (0, ParserUtils_1.updateSupressedParserError)(parserState, `Tried do parse ${identifier || target} but got ${supplied.slice(parserState.index, parserState.index + 10)} instead`);
-    return (0, ParserUtils_1.updateParserError)(parserState, `Tried do parse ${identifier || target} but got ${supplied.slice(parserState.index, parserState.index + 10)} instead`);
+    return (0, ParserUtils_1.updateParserError)(parserState, `Tried do parse \"${identifier || target}\" but got \"${supplied.slice(parserState.index, parserState.index + 10)}${parserState.stringToBeParsed.length > parserState.index + 10
+        ? "..."
+        : ""}\" instead`);
 };
 exports.str = str;
 const regexMatch = (regex, identifier) => (parserState, supressErrors) => {

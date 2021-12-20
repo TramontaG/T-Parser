@@ -19,12 +19,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.P = void 0;
 const T = __importStar(require("./AtomicParsers"));
 const C = __importStar(require("./Combinators"));
 const M = __importStar(require("./Modifiers"));
-const parse = (targetString, parser) => {
-    const parsingResult = C.parse(targetString || "", parser);
-    return parsingResult;
-};
-exports.P = Object.assign(Object.assign(Object.assign({}, T), C), M);
+const U = __importStar(require("./ParserUtils"));
+exports.default = Object.assign(Object.assign(Object.assign(Object.assign({}, T), C), M), U);
