@@ -17,7 +17,9 @@ export const str: ParserMaker =
         if (slicedTarget.length === 0)
             return updateParserError(
                 parserState,
-                `Tried to parse \"${target}\" but got unexpected end of input`
+                `Tried to parse \"${
+                    identifier || target
+                }\" but got unexpected end of input`
             );
 
         if (slicedTarget.startsWith(target))
@@ -63,7 +65,9 @@ export const regexMatch: ParserMaker =
         if (slicedTarget.length === 0)
             return updateParserError(
                 parserState,
-                `Treid to match regex ${regex} but got unexpected end of input`
+                `Treid to match ${
+                    identifier || `regex ${regex}`
+                } but got unexpected end of input`
             );
 
         const matchedSting = slicedTarget.match(regex);
@@ -93,6 +97,17 @@ export const regexMatch: ParserMaker =
     };
 
 export const letters = regexMatch(/^[A-Za-z]+/, "letters");
+export const upperCaseLetters = regexMatch(/^[A-Z]+/, "upper case letters");
+export const lowerCaseLetters = regexMatch(/^[a-z]+/, "lower case letters");
+
+export const letter = regexMatch(/^[A-z]/, "letter");
+export const upperCaseLetter = regexMatch(/^[A-Z]/, "upper case letter");
+export const lowerCaseLetter = regexMatch(/^[a-z]/, "lower case letter");
+
 export const digits = regexMatch(/^[0-9]+/, "digits");
+export const digit = regexMatch(/^[0-9]/, "digits");
+
 export const lettersOrDigits = regexMatch(/^[A-Za-z0-9]+/, "letters or digits");
+
 export const whiteSpace = str(" ", "whitespace");
+export const tab = str("\t", "tab");

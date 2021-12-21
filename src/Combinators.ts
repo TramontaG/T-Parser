@@ -1,9 +1,11 @@
+import { str } from "./AtomicParsers";
 import {
     Parser,
     ParserCombinator,
     ParserModifier,
     ParserState,
 } from "./models";
+import { transform } from "./Modifiers";
 import { updateParserError, updateParserState } from "./ParserUtils";
 
 export const fullString: ParserModifier =
@@ -105,6 +107,53 @@ export const times =
             result,
         });
     };
+
+export const between =
+    (left: Parser, right: Parser) =>
+    (parser: Parser, identifier?: string) =>
+    (parserState: ParserState) => {
+        if (parserState.isError) return parserState;
+
+        const leftParserState = left(parserState);
+        if (leftParserState.isError)
+            return updateParserError(
+                { ...leftParserState, result: parserState.result },
+
+                `error while tried to parse left hand part of ${
+                    identifier || "unindentified structure"
+                }`
+            );
+
+        const middleParserState = parser(leftParserState);
+        if (middleParserState.isError)
+            return updateParserError(
+                { ...middleParserState, result: parserState.result },
+                `error while tried to parse middle part of ${
+                    identifier || "unindentified structure"
+                }`
+            );
+
+        const rightParserState = right(middleParserState);
+        if (rightParserState.isError)
+            return updateParserError(
+                { ...rightParserState, result: parserState.result },
+                `error while tried to parse right hand part of ${
+                    identifier || "unindentified structure"
+                }`
+            );
+
+        return updateParserState(rightParserState, {
+            ...rightParserState,
+            result: middleParserState.result,
+        });
+    };
+
+export const betweenStrings =
+    (left: string, right: string) => (parser: Parser, identifier?: string) =>
+        transform(
+            sequenceOf([str(left), parser, str(right)], identifier),
+            ({ result }) => result[1]
+        );
 
 export const parse = (string: string, parser: Parser, identifier?: string) => {
     const parserState = {
