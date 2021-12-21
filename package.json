@@ -1,6 +1,6 @@
 {
     "name": "@guigalleta/t-parser",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Parser combinators library with zero dependencies inspired in arcsecond",
     "main": "./dist/index.js",
     "repository": "git@github.com:TramontaG/T-Parser.git",
