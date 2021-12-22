@@ -6,22 +6,12 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const T = __importStar(require("./AtomicParsers"));
-const C = __importStar(require("./Combinators"));
-const M = __importStar(require("./Modifiers"));
-const U = __importStar(require("./ParserUtils"));
-const B = __importStar(require("./Combinated"));
-exports.default = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, T), C), M), U), B);
+__exportStar(require("./AtomicParsers"), exports);
+__exportStar(require("./Combinators"), exports);
+__exportStar(require("./Modifiers"), exports);
+__exportStar(require("./ParserUtils"), exports);
+__exportStar(require("./Combinated"), exports);

@@ -7,7 +7,7 @@ const Combinators_1 = require("./Combinators");
 const Modifiers_1 = require("./Modifiers");
 const ParserUtils_1 = require("./ParserUtils");
 exports.anySpace = (0, Combinators_1.choice)([AtomicParsers_1.whiteSpace, AtomicParsers_1.tab], "space");
-exports.betweenParenthesis = (0, Combinators_1.betweenStrings)("(", ")");
+exports.betweenParenthesis = (0, Modifiers_1.betweenStrings)("(", ")");
 const preceededByString = (predecessor) => (parser) => (0, Modifiers_1.transform)((0, __1.sequenceOf)([(0, AtomicParsers_1.str)(predecessor), parser]), ({ result }) => result[1]);
 exports.preceededByString = preceededByString;
 const suceededByString = (successor) => (parser) => (0, Modifiers_1.transform)((0, __1.sequenceOf)([parser, (0, AtomicParsers_1.str)(successor)]), ({ result }) => result[0]);

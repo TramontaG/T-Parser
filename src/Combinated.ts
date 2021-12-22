@@ -1,23 +1,28 @@
-import { ParserState, sequenceOf } from "..";
+import { ParserModifierFactory, ParserState, sequenceOf } from "..";
 import { str, tab, whiteSpace } from "./AtomicParsers";
-import { betweenStrings, choice } from "./Combinators";
-import { Parser } from "./models";
-import { transform } from "./Modifiers";
+import { choice } from "./Combinators";
+import { Parser, ParserCombinator, ParserModifier } from "./models";
+import { betweenStrings, transform } from "./Modifiers";
 import { updateParserError, updateParserState } from "./ParserUtils";
 
-export const anySpace = choice([whiteSpace, tab], "space");
-export const betweenParenthesis = betweenStrings("(", ")");
+export const anySpace: Parser = choice([whiteSpace, tab], "space");
+export const betweenParenthesis: ParserModifier = betweenStrings("(", ")");
 
-export const preceededByString = (predecessor: string) => (parser: Parser) =>
-    transform(
-        sequenceOf([str(predecessor), parser]),
-        ({ result }) => result[1]
-    );
+export const preceededByString: ParserModifierFactory =
+    (predecessor: string) => (parser: Parser) =>
+        transform(
+            sequenceOf([str(predecessor), parser]),
+            ({ result }) => result[1]
+        );
 
-export const suceededByString = (successor: string) => (parser: Parser) =>
-    transform(sequenceOf([parser, str(successor)]), ({ result }) => result[0]);
+export const suceededByString: ParserModifierFactory =
+    (successor: string) => (parser: Parser) =>
+        transform(
+            sequenceOf([parser, str(successor)]),
+            ({ result }) => result[0]
+        );
 
-export const preceededBy =
+export const preceededBy: ParserModifierFactory =
     (predecessor: Parser) =>
     (parser: Parser, identifier?: string) =>
     (parserState: ParserState) => {
@@ -47,7 +52,7 @@ export const preceededBy =
         });
     };
 
-export const suceededBy =
+export const suceededBy: ParserModifierFactory =
     (sucessor: Parser) =>
     (parser: Parser, identifier?: string) =>
     (parserState: ParserState) => {
