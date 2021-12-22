@@ -64,8 +64,8 @@ export const suceededBy: ParserModifierFactory;
 //utilities
 export function transform(
     parser: Parser,
-    transformerFn: (parserState: ParserState) => ParserState
-): ParserState;
+    transformerFn: (parserState: ParserState) => any
+): Parser;
 
 export function parse(
     targetString: string,
@@ -73,4 +73,4 @@ export function parse(
     identifier?: string
 ): ParserState;
 
-export function flatArgs(args: any[]): string;
+export function flatArgs(parserState: ParserState): string;
