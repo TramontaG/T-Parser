@@ -1,0 +1,48 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\guiga\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js publish
+
+PATH: 
+  C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Microsoft VS Code\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Users\guiga\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\Git\cmd;C:\Users\guiga\gcc\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\guiga\AppData\Local\Android\Sdk\tools\bin;C:\Users\guiga\AppData\Local\Microsoft\WindowsApps;C:\Users\guiga\AppData\Roaming\npm;C:\Users\guiga\AppData\Local\GitHubDesktop\bin;C:\Users\guiga\scrcpy;
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  16.2.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/-/user/org.couchdb.user:guigalleta: failed to authenticate: Could not authenticate guigalleta: bad password
+      at Request.params.callback [as _callback] (C:\Users\guiga\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
+      at Request.self.callback (C:\Users\guiga\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
+      at Request.emit (node:events:365:28)
+      at Request.<anonymous> (C:\Users\guiga\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
+      at Request.emit (node:events:365:28)
+      at IncomingMessage.<anonymous> (C:\Users\guiga\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
+      at Object.onceWrapper (node:events:471:28)
+      at IncomingMessage.emit (node:events:377:35)
+      at endReadableNT (node:internal/streams/readable:1312:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+      "name": "@guigalleta/t-parser",
+      "version": "1.2.2",
+      "description": "Parser combinators library with zero dependencies inspired in arcsecond",
+      "main": "./dist/index.js",
+      "repository": "git@github.com:TramontaG/T-Parser.git",
+      "author": "Tramonta <tramontano.guilherme@yahoo.com.br>",
+      "license": "MIT",
+      "private": false,
+      "scripts": {
+          "build": "tsc"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

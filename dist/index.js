@@ -23,4 +23,5 @@ const T = __importStar(require("./AtomicParsers"));
 const C = __importStar(require("./Combinators"));
 const M = __importStar(require("./Modifiers"));
 const U = __importStar(require("./ParserUtils"));
-exports.default = Object.assign(Object.assign(Object.assign(Object.assign({}, T), C), M), U);
+const B = __importStar(require("./Combinated"));
+exports.default = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, T), C), M), U), B);
