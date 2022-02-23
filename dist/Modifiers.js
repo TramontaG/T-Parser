@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.betweenStrings = exports.between = exports.times = exports.transform = exports.repeat = exports.maybe = exports.atLeastOne = exports.maybeSome = void 0;
+exports.except = exports.lazy = exports.betweenStrings = exports.between = exports.times = exports.transform = exports.repeat = exports.maybe = exports.atLeastOne = exports.maybeSome = void 0;
 const AtomicParsers_1 = require("./AtomicParsers");
 const Combinators_1 = require("./Combinators");
 const ParserUtils_1 = require("./ParserUtils");
@@ -75,7 +75,7 @@ const times = (amount) => (parser, identifier) => (parserState) => {
     for (let i = 0; i < amount; i++) {
         const tempParserState = parser(currentParserState);
         if (tempParserState.isError)
-            return (0, ParserUtils_1.updateParserError)(tempParserState, `Tried to parse ${amount} ${identifier !== null && identifier !== void 0 ? identifier : "unindentified structure"} but got ${i || "none"}`);
+            return (0, ParserUtils_1.updateParserError)(tempParserState, `Tried to parse ${amount} ${identifier || "unindentified structure"} but got ${i || "none"}`);
         result.push(tempParserState.result);
         currentParserState = tempParserState;
     }
@@ -99,3 +99,19 @@ const between = (left, right) => (parser, identifier) => (parserState) => {
 exports.between = between;
 const betweenStrings = (left, right) => (parser, identifier) => (0, exports.transform)((0, Combinators_1.sequenceOf)([(0, AtomicParsers_1.str)(left), parser, (0, AtomicParsers_1.str)(right)], identifier), ({ result }) => result[1]);
 exports.betweenStrings = betweenStrings;
+const lazy = (parser) => parser;
+exports.lazy = lazy;
+const except = (wrongParser, identifierWrong) => (correctParser, identifierCorrect) => (parserState) => {
+    const wrongParserState = wrongParser(parserState);
+    if (!wrongParserState.isError) {
+        return (0, ParserUtils_1.updateParserError)(Object.assign(Object.assign({}, wrongParserState), { isError: true, result: parserState.result }), `Parser found unintended ${identifierWrong || "unindetified"} structure`);
+    }
+    const correctParserState = correctParser(parserState);
+    if (correctParserState.isError) {
+        console.log("was not able to parse correct structure");
+        return (0, ParserUtils_1.updateParserError)(Object.assign(Object.assign({}, correctParserState), { result: parserState.result }), `Parser could not match ${identifierCorrect !== null && identifierCorrect !== void 0 ? identifierCorrect : "unindetified"} structure`);
+    }
+    console.log("was able to parse correct structure");
+    return (0, ParserUtils_1.updateParserState)(correctParserState, Object.assign(Object.assign({}, correctParserState), { result: correctParserState.result }));
+};
+exports.except = except;

@@ -22,4 +22,7 @@ export type ParserCombinator = (
 
 export type ParserModifier = (parser: Parser, identifier?: string) => Parser;
 
-export type ParserModifierFactory = (target: any) => ParserModifier;
+export type ParserModifierFactory = (
+    target: any,
+    identifier?: string
+) => ParserModifier;

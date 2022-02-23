@@ -19,7 +19,10 @@ export type ParserCombinator = (
     identifier?: string
 ) => Parser;
 export type ParserModifier = (parser: Parser, identifier?: string) => Parser;
-export type ParserModifierFactory = (target: any) => ParserModifier;
+export type ParserModifierFactory = (
+    target: any,
+    identifier?: string
+) => ParserModifier;
 
 //Atomic parsers
 export const str: ParserMaker;
@@ -60,6 +63,7 @@ export const preceededByString: ParserModifierFactory;
 export const suceededByString: ParserModifierFactory;
 export const preceededBy: ParserModifierFactory;
 export const suceededBy: ParserModifierFactory;
+export const except: ParserModifierFactory;
 
 //utilities
 export function transform(

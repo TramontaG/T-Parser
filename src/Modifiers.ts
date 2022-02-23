@@ -125,7 +125,7 @@ export const times: ParserModifierFactory =
                 return updateParserError(
                     tempParserState,
                     `Tried to parse ${amount} ${
-                        identifier ?? "unindentified structure"
+                        identifier || "unindentified structure"
                     } but got ${i || "none"}`
                 );
             result.push(tempParserState.result);
@@ -184,3 +184,46 @@ export const betweenStrings: (left: string, right: string) => ParserModifier =
             sequenceOf([str(left), parser, str(right)], identifier),
             ({ result }) => result[1]
         );
+
+export const lazy = (parser: Parser) => parser;
+
+export const except: ParserModifierFactory =
+    (wrongParser: Parser, identifierWrong?: string): ParserModifier =>
+    (correctParser: Parser, identifierCorrect?: string): Parser =>
+    (parserState: ParserState) => {
+        const wrongParserState = wrongParser(parserState);
+        if (!wrongParserState.isError) {
+            return updateParserError(
+                {
+                    ...wrongParserState,
+                    isError: true,
+                    result: parserState.result,
+                },
+                `Parser found unintended ${
+                    identifierWrong || "unindetified"
+                } structure`
+            );
+        }
+
+        const correctParserState = correctParser(parserState);
+        if (correctParserState.isError) {
+            console.log("was not able to parse correct structure");
+
+            return updateParserError(
+                {
+                    ...correctParserState,
+                    result: parserState.result,
+                },
+                `Parser could not match ${
+                    identifierCorrect ?? "unindetified"
+                } structure`
+            );
+        }
+
+        console.log("was able to parse correct structure");
+
+        return updateParserState(correctParserState, {
+            ...correctParserState,
+            result: correctParserState.result,
+        });
+    };
