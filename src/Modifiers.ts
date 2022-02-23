@@ -207,8 +207,6 @@ export const except: ParserModifierFactory =
 
         const correctParserState = correctParser(parserState);
         if (correctParserState.isError) {
-            console.log("was not able to parse correct structure");
-
             return updateParserError(
                 {
                     ...correctParserState,
@@ -219,8 +217,6 @@ export const except: ParserModifierFactory =
                 } structure`
             );
         }
-
-        console.log("was able to parse correct structure");
 
         return updateParserState(correctParserState, {
             ...correctParserState,
